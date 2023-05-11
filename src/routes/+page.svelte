@@ -1,52 +1,58 @@
 <script lang="ts">
-import { browser } from '$app/environment';
-import * as THREE from "three";
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+	import { bubble } from 'svelte/internal';
+	import * as THREE from "three";
 
-if(browser) {
-	let camera: THREE.PerspectiveCamera;
-	let scene: THREE.Scene;
-	let renderer : THREE.WebGLRenderer;
-	let cube : THREE.Mesh<THREE.BoxGeometry, THREE.MeshBasicMaterial>;
+	const isOBSBrowserSource = typeof window !== 'undefined' && /OBS\/\d+\.\d+\.\d+/.test(window.navigator.userAgent);
 
-	const init = () => {
-		scene = new THREE.Scene;
-		camera = new THREE.PerspectiveCamera(75, window.innerWidth/ window.innerHeight, 0.1, 1000);
+	let canvas: HTMLCanvasElement;
 
+	if(browser){
+		onMount(() => {
+			canvas = document.getElementById('3D') as HTMLCanvasElement;
 
-		renderer = new THREE.WebGLRenderer();
-		renderer.setSize( window.innerWidth, window.innerHeight);
-		document.body.appendChild( renderer.domElement );
+			const renderer = new THREE.WebGLRenderer({ canvas });
+			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
-		const geometry = new THREE.BoxGeometry( 1,1,1,1 );
-		const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-		cube = new THREE.Mesh( geometry, material );
-		scene.add( cube );
+			const camera = new THREE.PerspectiveCamera(
+				75,
+				canvas.clientWidth / canvas.clientHeight,
+				0.1,
+				1000
+			);
+			camera.position.z = 5;
 
-		camera.position.z = 5;
+			const scene = new THREE.Scene();
+
+			const geometry = new THREE.BoxGeometry();
+			const material = new THREE.MeshBasicMaterial({color: 0xff00ff});
+			const cube = new THREE.Mesh(geometry, material);
+			scene.add(cube);
+
+			function animate() {
+				requestAnimationFrame(animate);
+
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+
+				renderer.render(scene, camera);
+			}
+
+			animate();
+		});
 	}
-
-	const render = () => {
-		renderer.clear()
-		renderer.render(scene, camera);
-	}
-
-	const animate = () => {
-		requestAnimationFrame(animate);
-
-		cube.rotation.x += 0.005;
-		cube.rotation.y += 0.005;
-
-		render();
-	}
-
-	init();
-	animate();
-}
-
-const isOBSBrowserSource = typeof window !== 'undefined' && /OBS\/\d+\.\d+\.\d+/.test(window.navigator.userAgent);
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<canvas id="3D"></canvas>
 
-<h1>is this being rendered in OBS?: {isOBSBrowserSource}</h1>
+<style>
+	canvas {
+		position: fixed;
+		top: 0px;
+		left: 0px;
+
+		width: 100%;
+		height: 100%;
+	}
+</style>

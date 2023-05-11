@@ -13,7 +13,7 @@
 			canvas = document.getElementById('3D') as HTMLCanvasElement;
 			canvas.setAttribute('alpha', 'true');
 
-			const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true });
+			const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true, antialias: true});
 			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 			renderer.setClearColor(0x000000, 0);
 

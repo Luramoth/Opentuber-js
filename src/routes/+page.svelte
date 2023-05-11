@@ -11,9 +11,11 @@
 	if(browser){
 		onMount(() => {
 			canvas = document.getElementById('3D') as HTMLCanvasElement;
+			canvas.setAttribute('alpha', 'true');
 
-			const renderer = new THREE.WebGLRenderer({ canvas });
+			const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true });
 			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+			renderer.setClearColor(0x000000, 0);
 
 			const camera = new THREE.PerspectiveCamera(
 				75,

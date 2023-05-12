@@ -7,7 +7,8 @@
 	
 	export let bg:boolean = true;
 	let canvas: HTMLCanvasElement;
-	
+	let renderer: THREE.WebGLRenderer;
+
 	if(browser){
 		onMount(() => {
 			canvas = document.getElementById('3D') as HTMLCanvasElement;
@@ -19,7 +20,7 @@
 				canvas.style.left = "0px";
 			}
 
-			const renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true, antialias: true});
+			renderer = new THREE.WebGLRenderer({canvas: canvas, alpha: true, antialias: true});
 			renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 			renderer.setClearColor(0x000000, 0);
 
@@ -46,14 +47,13 @@
 
 				renderer.render(scene, camera);
 			}
-			
-			animate();
 
+			animate();
 		});
 	}
 </script>
 
-<canvas id="3D" ></canvas>
+<canvas id="3D"></canvas>
 
 <style>
 	canvas {

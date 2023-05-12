@@ -27,7 +27,6 @@
 		top: 0px;
 		left: 0px;
 		
-		height: 10cm;
 		width: 20cm;
 
 		grid-template-rows: auto 1fr;
@@ -41,13 +40,17 @@
 	}
 
 	.webcam {
-		max-height: 50vh;
+		max-height: 10cm;
+		width: 10cm;
 
 		grid-column-start: 2;
 	}
 
 	.viewport {
 		background-color: black;
+
+		height: 10cm;
+		width: 10cm;
 
 		grid-column-start: 2;
 	}

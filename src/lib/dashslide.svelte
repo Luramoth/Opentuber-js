@@ -2,7 +2,7 @@
 
 <style>
 	div {
-		background-color: grey;
+		background-color: darkmagenta;
 		height: 100%;
 	}
 </style>

@@ -5,27 +5,46 @@
 
 </script>
 
-<div class="dashboard">
-	<div class="dashslide">
-		<Dashslide/>
-	</div>
+<body>
+	<div class="center">
+		<div class="dashboard">
+			<div class="dashslide">
+				<Dashslide/>
+			</div>
 
-	<div class="webcam">
-		<Webcam/>
-	</div>
+			<div class="webcam">
+				<Webcam/>
+			</div>
 
-	<div class="viewport">
-		<ThreeCanvas bg={false} />
+			<div class="viewport">
+				<ThreeCanvas bg={false} />
+			</div>
+		</div>
 	</div>
-</div>
+</body>
 
 <style>
+
+	body {
+		background-color: rgb(61, 0, 61);
+	}
+
+	.center {
+		position: relative;
+		height: 100vh;
+		box-shadow: 20px black;
+	}
+
 	.dashboard {
 		display: grid;
-		position: fixed;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
 
-		top: 0px;
-		left: 0px;
+		border-radius: 20px;
+		overflow: hidden;
+		background-color: black;
 		
 		width: 20cm;
 
@@ -34,7 +53,6 @@
 	}
 	
 	.dashslide {
-
 		grid-column-start: 1;
 		grid-row: span 2;
 	}
@@ -42,6 +60,8 @@
 	.webcam {
 		max-height: 10cm;
 		width: 10cm;
+
+		margin-bottom: 0px;
 
 		grid-column-start: 2;
 	}

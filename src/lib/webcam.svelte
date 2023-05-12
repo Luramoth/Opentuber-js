@@ -21,3 +21,9 @@
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <video autoplay id='webcam'></video>
+
+<style>
+	video {
+		width: 100%;
+	}
+</style>
